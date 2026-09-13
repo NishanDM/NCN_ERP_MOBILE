@@ -1,0 +1,10 @@
+{
+  "description": "Designed for mobile users, this web app streamlines EPS management with features for tracking stock, invoices, and GRNs, enhancing operational efficiency.",
+  "robots": {
+    "index": false
+  },
+  "accessibility": {
+    "addBypassLinks": false,
+    "ignoreReducedMotion": false
+  }
+}
