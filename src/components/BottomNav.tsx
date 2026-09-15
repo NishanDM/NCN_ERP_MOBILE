@@ -1,44 +1,39 @@
-import { LayoutDashboard, Package, FileText, ClipboardList, MoreHorizontal } from "lucide-react"
+import { NavLink } from "react-router-dom"
+import { LayoutDashboard, Package, FileText, ClipboardList, MoreHorizontal, type LucideIcon } from "lucide-react"
 import { cn } from "@/lib/utils"
+import { TAB_ROUTE_ORDER, type TabKey } from "@/routes/approutes"
 
-export type TabKey = "dashboard" | "stock" | "invoices" | "grn" | "more"
-
-interface NavItem {
-  key: TabKey
-  label: string
-  icon: React.ElementType
+const TAB_ICONS: Record<TabKey, LucideIcon> = {
+  dashboard: LayoutDashboard,
+  stock: Package,
+  invoices: FileText,
+  grn: ClipboardList,
+  more: MoreHorizontal,
 }
 
-const navItems: NavItem[] = [
-  { key: "dashboard", label: "Home", icon: LayoutDashboard },
-  { key: "stock", label: "Stock", icon: Package },
-  { key: "invoices", label: "Invoices", icon: FileText },
-  { key: "grn", label: "GRN", icon: ClipboardList },
-  { key: "more", label: "More", icon: MoreHorizontal },
-]
-
-interface BottomNavProps {
-  active: TabKey
-  onChange: (key: TabKey) => void
-}
-
-export default function BottomNav({ active, onChange }: BottomNavProps) {
+export default function BottomNav() {
   return (
     <nav className="fixed bottom-0 left-1/2 -translate-x-1/2 w-full max-w-[430px] bg-card border-t border-border flex items-center pb-safe z-20">
-      {navItems.map(({ key, label, icon: Icon }) => {
-        const isActive = active === key
+      {TAB_ROUTE_ORDER.map(({ key, path, label }) => {
+        const Icon = TAB_ICONS[key]
         return (
-          <button
+          <NavLink
             key={key}
-            onClick={() => onChange(key)}
-            className={cn(
-              "flex-1 flex flex-col items-center gap-1 py-3 text-[10px] font-medium transition-colors active:scale-95",
-              isActive ? "text-primary" : "text-muted-foreground"
-            )}
+            to={path}
+            className={({ isActive }) =>
+              cn(
+                "flex-1 flex flex-col items-center gap-1 py-3 text-[10px] font-medium transition-colors active:scale-95",
+                isActive ? "text-primary" : "text-muted-foreground"
+              )
+            }
           >
-            <Icon size={20} strokeWidth={isActive ? 2.5 : 1.75} />
-            <span>{label}</span>
-          </button>
+            {({ isActive }) => (
+              <>
+                <Icon size={20} strokeWidth={isActive ? 2.5 : 1.75} />
+                <span>{label}</span>
+              </>
+            )}
+          </NavLink>
         )
       })}
     </nav>
