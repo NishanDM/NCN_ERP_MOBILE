@@ -1,5 +1,9 @@
 import { ChevronRight, ShoppingCart, BarChart3, Users, Settings, HelpCircle, LogOut, FileBarChart, Truck } from "lucide-react"
+import { useNavigate } from "react-router-dom"
 import AppHeader from "@/components/AppHeader"
+import ProfileAvatar from "@/features/profile/ProfileAvatar"
+import { useProfile } from "@/features/profile/profileContext"
+import { ROUTES } from "@/routes/approutes"
 
 const menuSections = [
   {
@@ -28,23 +32,32 @@ const menuSections = [
 ]
 
 export default function MorePage() {
+  const navigate = useNavigate()
+  const { profile } = useProfile()
+
   return (
     <div className="flex flex-col min-h-full bg-background">
       <AppHeader title="More" subtitle="EPS v2.4.1" />
 
       <div className="flex-1 scrollable overflow-y-auto px-4 pt-4 pb-28 space-y-5">
         {/* Profile card */}
-        <div className="rounded-xl border border-border bg-card p-4 flex items-center gap-4">
-          <div className="w-12 h-12 rounded-full bg-primary/20 border border-primary/30 flex items-center justify-center text-primary font-bold text-lg">
-            A
-          </div>
+        <button
+          type="button"
+          onClick={() => navigate(ROUTES.PROFILE)}
+          className="w-full rounded-xl border border-border bg-card p-4 flex items-center gap-4 text-left active:bg-secondary transition-colors"
+        >
+          <ProfileAvatar name={profile?.fullName ?? ""} avatarUrl={profile?.avatarUrl} size="lg" />
           <div className="flex-1 min-w-0">
-            <p className="font-semibold text-foreground">Ahmad Razali</p>
-            <p className="text-xs text-muted-foreground">Store Manager · KL Plant</p>
-            <p className="font-mono text-[10px] text-muted-foreground mt-0.5">USR-00142 · admin@eps.my</p>
+            <p className="font-semibold text-foreground truncate">{profile?.fullName ?? "—"}</p>
+            <p className="text-xs text-muted-foreground truncate">
+              {profile?.jobTitle ?? "—"} · {profile?.branch ?? "—"}
+            </p>
+            <p className="font-mono text-[10px] text-muted-foreground mt-0.5 truncate">
+              {profile?.employeeCode ?? "—"} · {profile?.email ?? "—"}
+            </p>
           </div>
-          <ChevronRight size={16} className="text-muted-foreground" />
-        </div>
+          <ChevronRight size={16} className="text-muted-foreground shrink-0" />
+        </button>
 
         {menuSections.map((section) => (
           <div key={section.title}>
