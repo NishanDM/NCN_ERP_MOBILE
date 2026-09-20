@@ -9,6 +9,12 @@ export const ROUTES = {
   GRN: "/grn",
   MORE: "/more",
 
+  // ── Pushed screens  ────────
+  NOTIFICATIONS: "/notifications",
+  PROFILE: "/profile",
+  PROFILE_EDIT: "/profile/edit",
+  PROFILE_CHANGE_EMAIL: "/profile/change-email",
+  PROFILE_CHANGE_PASSWORD: "/profile/change-password",
 } as const;
 
 export type MobileRoute = (typeof ROUTES)[keyof typeof ROUTES];
@@ -38,6 +44,8 @@ export const TAB_ROUTE_ORDER: TabRouteEntry[] = [
 // ─────────────────────────────────────────────────────────────────────────────
 
 export function getActiveTabFromPath(pathname: string): TabKey {
+  if (pathname.startsWith(ROUTES.PROFILE)) return "more";
+
   const match = TAB_ROUTE_ORDER.find((tab) => pathname.startsWith(tab.path));
   return match ? match.key : "dashboard";
 }
