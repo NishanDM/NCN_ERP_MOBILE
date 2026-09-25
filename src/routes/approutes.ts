@@ -18,6 +18,7 @@ export const ROUTES = {
 
   // --- Procurement & Administration ---
   PURCHASE_ORDERS: "/purchase_orders",
+  PURCHASE_REQUESTS: "/purchase_requests",
   SUPPLIERS: "/suppliers",
   STOCK_REPORTS: "/stock-reports",
   GRN_SUMMARY: "/grn-summary",
