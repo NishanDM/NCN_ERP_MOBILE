@@ -9,24 +9,24 @@ const menuSections = [
   {
     title: "Procurement",
     items: [
-      { icon: ShoppingCart, label: "Purchase Orders", badge: "8 open", color: "text-blue-400", bg: "bg-blue-500/10" },
-      { icon: Truck, label: "Suppliers", badge: null, color: "text-violet-400", bg: "bg-violet-500/10" },
+      { icon: ShoppingCart, label: "Purchase Orders", badge: "8 open", color: "text-blue-400", bg: "bg-blue-500/10", route: ROUTES.PURCHASE_ORDERS },
+      { icon: Truck, label: "Suppliers", badge: null, color: "text-violet-400", bg: "bg-violet-500/10", route: ROUTES.SUPPLIERS },
       { icon: FileBarChart, label: "Purchase Requests", badge: "3 pending", color: "text-amber-400", bg: "bg-amber-500/10" },
     ],
   },
   {
     title: "Reports",
     items: [
-      { icon: BarChart3, label: "Stock Reports", badge: null, color: "text-emerald-400", bg: "bg-emerald-500/10" },
-      { icon: FileBarChart, label: "GRN Summary", badge: null, color: "text-blue-400", bg: "bg-blue-500/10" },
+      { icon: BarChart3, label: "Stock Reports", badge: null, color: "text-emerald-400", bg: "bg-emerald-500/10", route: ROUTES.STOCK_REPORTS },
+      { icon: FileBarChart, label: "GRN Summary", badge: null, color: "text-blue-400", bg: "bg-blue-500/10", route: ROUTES.GRN_SUMMARY },
     ],
   },
   {
     title: "Administration",
     items: [
-      { icon: Users, label: "User Management", badge: null, color: "text-primary", bg: "bg-primary/10" },
-      { icon: Settings, label: "System Settings", badge: null, color: "text-muted-foreground", bg: "bg-secondary" },
-      { icon: HelpCircle, label: "Help & Support", badge: null, color: "text-muted-foreground", bg: "bg-secondary" },
+      { icon: Users, label: "User Management", badge: null, color: "text-primary", bg: "bg-primary/10", route: ROUTES.USER_MANAGEMENT },
+      { icon: Settings, label: "System Settings", badge: null, color: "text-muted-foreground", bg: "bg-secondary", route: ROUTES.SYSTEM_SETTINGS },
+      { icon: HelpCircle, label: "Help & Support", badge: null, color: "text-muted-foreground", bg: "bg-secondary", route: ROUTES.HELP_SUPPORT },
     ],
   },
 ]
@@ -63,9 +63,11 @@ export default function MorePage() {
           <div key={section.title}>
             <p className="text-xs text-muted-foreground font-mono uppercase tracking-widest mb-2">{section.title}</p>
             <div className="rounded-xl border border-border bg-card overflow-hidden divide-y divide-border">
-              {section.items.map(({ icon: Icon, label, badge, color, bg }) => (
+              {section.items.map(({ icon: Icon, label, badge, color, bg, route }) => (
                 <button
                   key={label}
+                  type="button"
+                  onClick={() => route && navigate(route)}
                   className="w-full flex items-center gap-3 px-4 py-3.5 text-left active:bg-secondary transition-colors"
                 >
                   <div className={`w-8 h-8 rounded-lg flex items-center justify-center ${bg}`}>

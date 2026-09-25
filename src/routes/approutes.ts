@@ -15,6 +15,15 @@ export const ROUTES = {
   PROFILE_EDIT: "/profile/edit",
   PROFILE_CHANGE_EMAIL: "/profile/change-email",
   PROFILE_CHANGE_PASSWORD: "/profile/change-password",
+
+  // ── Procurement & Administration ────────
+  PURCHASE_ORDERS: "/purchase_orders",
+  SUPPLIERS: "/suppliers",
+  STOCK_REPORTS: "/stock-reports",
+  GRN_SUMMARY: "/grn-summary",
+  USER_MANAGEMENT: "/user-management",
+  SYSTEM_SETTINGS: "/system-settings",
+  HELP_SUPPORT: "/help-support",
 } as const;
 
 export type MobileRoute = (typeof ROUTES)[keyof typeof ROUTES];
