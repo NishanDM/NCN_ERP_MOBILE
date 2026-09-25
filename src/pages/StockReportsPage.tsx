@@ -2,6 +2,7 @@ import { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import {
   BarChart3,
+  PieChart as PieChartIcon,
   FileSpreadsheet,
   FileText,
   TrendingUp,
@@ -30,21 +31,20 @@ const computerShopStockItems = [
   { id: "SKU-PC-008", name: "Razer BlackWidow V4 Mechanical Keyboard", category: "Peripherals", qty: 3, unitPrice: "RM 799", stockValue: "RM 2,397", status: "Low Stock" }
 ]
 
-// Stock category distribution for visual Bar/Pie chart graph simulation
+// Stock category distribution for visual Bar and Pie chart representations
 const categoryDistribution = [
-  { category: "Laptops & Systems", percentage: 40, value: "RM 155,976", color: "bg-primary" },
-  { category: "Graphic Cards & GPUs", percentage: 25, value: "RM 58,788", color: "bg-blue-500" },
-  { category: "Processors & Components", percentage: 18, value: "RM 41,985", color: "bg-violet-500" },
-  { category: "Storage & Memory", percentage: 12, value: "RM 45,727", color: "bg-emerald-500" },
-  { category: "Monitors & Peripherals", percentage: 5, value: "RM 73,257", color: "bg-amber-500" }
+  { category: "Laptops & Systems", percentage: 40, value: "RM 155,976", hexColor: "#3b82f6", bgClass: "bg-blue-500" },
+  { category: "Graphic Cards & GPUs", percentage: 25, value: "RM 58,788", hexColor: "#8b5cf6", bgClass: "bg-violet-500" },
+  { category: "Processors & Components", percentage: 18, value: "RM 41,985", hexColor: "#10b981", bgClass: "bg-emerald-500" },
+  { category: "Storage & Memory", percentage: 12, value: "RM 45,727", hexColor: "#f59e0b", bgClass: "bg-amber-500" },
+  { category: "Monitors & Peripherals", percentage: 5, value: "RM 73,257", hexColor: "#ef4444", bgClass: "bg-red-500" }
 ]
 
 export default function StockReportsPage() {
   const navigate = useNavigate()
   const [downloadToast, setDownloadToast] = useState<string | null>(null)
-  const [selectedChartTab, setSelectedChartTab] = useState<"bar" | "pie">("bar")
 
-  // Generate Report Toast Handler
+  // Generate Report Toast Handler for PDF and Excel
   const handleGenerateReport = (type: "PDF" | "Excel") => {
     setDownloadToast(`Generating and downloading ${type} stock report...`)
     setTimeout(() => setDownloadToast(null), 3000)
@@ -59,7 +59,7 @@ export default function StockReportsPage() {
       />
 
       <div className="flex-1 px-4 pb-28 pt-4 scrollable overflow-y-auto space-y-5">
-        {/* Export Buttons: Generate PDF & Generate Excel */}
+        {/* Generate PDF & Generate Excel Export Buttons */}
         <div className="grid grid-cols-2 gap-2">
           <Button
             onClick={() => handleGenerateReport("PDF")}
@@ -78,7 +78,7 @@ export default function StockReportsPage() {
           </Button>
         </div>
 
-        {/* Download Feedback Notification Toast */}
+        {/* Download Toast Message */}
         {downloadToast && (
           <div className="rounded-xl border border-emerald-500/30 bg-emerald-500/10 p-3 text-xs text-emerald-400 flex items-center gap-2">
             <CheckCircle2 size={16} />
@@ -86,47 +86,115 @@ export default function StockReportsPage() {
           </div>
         )}
 
-        {/* Visual Charts Section (Bar Chart & Category Distribution Graph) */}
+        {/* Chart 1: Visual Pie / Doughnut Chart Section */}
         <Card>
           <CardContent className="p-4 space-y-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <BarChart3 size={18} className="text-primary" />
-                <h3 className="font-semibold text-xs text-foreground uppercase tracking-wider">
-                  Stock Category Distribution
-                </h3>
-              </div>
-              <div className="flex gap-1 bg-secondary p-1 rounded-lg">
-                <button
-                  onClick={() => setSelectedChartTab("bar")}
-                  className={`px-2.5 py-1 text-[10px] font-medium rounded ${
-                    selectedChartTab === "bar" ? "bg-primary text-white" : "text-muted-foreground"
-                  }`}
-                >
-                  Bar Graph
-                </button>
-                <button
-                  onClick={() => setSelectedChartTab("pie")}
-                  className={`px-2.5 py-1 text-[10px] font-medium rounded ${
-                    selectedChartTab === "pie" ? "bg-primary text-white" : "text-muted-foreground"
-                  }`}
-                >
-                  Distribution
-                </button>
-              </div>
+            <div className="flex items-center gap-2">
+              <PieChartIcon size={18} className="text-primary" />
+              <h3 className="font-semibold text-xs text-foreground uppercase tracking-wider">
+                Category Proportion (Pie Chart)
+              </h3>
             </div>
 
-            {/* Visual Bar Graphs */}
+            <div className="flex flex-col sm:flex-row items-center gap-4 pt-1">
+              {/* SVG Conic Pie Chart Graphic */}
+              <div className="relative w-36 h-36 shrink-0 flex items-center justify-center">
+                <svg viewBox="0 0 36 36" className="w-full h-full transform -rotate-90">
+                  {/* Conic donut slices */}
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="15.915"
+                    fill="transparent"
+                    stroke="#3b82f6"
+                    strokeWidth="3.8"
+                    strokeDasharray="40 60"
+                    strokeDashoffset="0"
+                  />
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="15.915"
+                    fill="transparent"
+                    stroke="#8b5cf6"
+                    strokeWidth="3.8"
+                    strokeDasharray="25 75"
+                    strokeDashoffset="-40"
+                  />
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="15.915"
+                    fill="transparent"
+                    stroke="#10b981"
+                    strokeWidth="3.8"
+                    strokeDasharray="18 82"
+                    strokeDashoffset="-65"
+                  />
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="15.915"
+                    fill="transparent"
+                    stroke="#f59e0b"
+                    strokeWidth="3.8"
+                    strokeDasharray="12 88"
+                    strokeDashoffset="-83"
+                  />
+                  <circle
+                    cx="18"
+                    cy="18"
+                    r="15.915"
+                    fill="transparent"
+                    stroke="#ef4444"
+                    strokeWidth="3.8"
+                    strokeDasharray="5 95"
+                    strokeDashoffset="-95"
+                  />
+                </svg>
+                <div className="absolute inset-0 flex flex-col items-center justify-center text-center">
+                  <span className="font-mono text-xs font-bold text-foreground">100%</span>
+                  <span className="text-[9px] text-muted-foreground">Stock Share</span>
+                </div>
+              </div>
+
+              {/* Pie Chart Color Legend List */}
+              <div className="flex-1 space-y-1.5 w-full">
+                {categoryDistribution.map((cat) => (
+                  <div key={cat.category} className="flex items-center justify-between text-xs">
+                    <div className="flex items-center gap-2 min-w-0">
+                      <span className={`w-2.5 h-2.5 rounded-full shrink-0 ${cat.bgClass}`} />
+                      <span className="text-foreground font-medium truncate">{cat.category}</span>
+                    </div>
+                    <span className="font-mono text-muted-foreground shrink-0">{cat.percentage}%</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
+        {/* Chart 2: Visual Bar Graphs Section */}
+        <Card>
+          <CardContent className="p-4 space-y-4">
+            <div className="flex items-center gap-2">
+              <BarChart3 size={18} className="text-primary" />
+              <h3 className="font-semibold text-xs text-foreground uppercase tracking-wider">
+                Category Stock Value (Bar Graph)
+              </h3>
+            </div>
+
+            {/* Visual Bar Graphs for Stock Values */}
             <div className="space-y-3 pt-1">
               {categoryDistribution.map((cat) => (
                 <div key={cat.category} className="space-y-1">
                   <div className="flex items-center justify-between text-xs">
                     <span className="font-medium text-foreground">{cat.category}</span>
-                    <span className="font-mono text-muted-foreground">{cat.percentage}% ({cat.value})</span>
+                    <span className="font-mono text-primary font-semibold">{cat.value}</span>
                   </div>
-                  <div className="h-2.5 rounded-full bg-secondary overflow-hidden flex">
+                  <div className="h-3 rounded-full bg-secondary overflow-hidden flex">
                     <div
-                      className={`h-full rounded-full ${cat.color}`}
+                      className={`h-full rounded-full ${cat.bgClass}`}
                       style={{ width: `${cat.percentage}%` }}
                     />
                   </div>
@@ -136,7 +204,7 @@ export default function StockReportsPage() {
           </CardContent>
         </Card>
 
-        {/* Computer Shop Inventory Itemized List */}
+        {/* Computer Shop Itemized Inventory List */}
         <div>
           <div className="flex items-center justify-between mb-3">
             <h3 className="text-xs text-muted-foreground font-mono uppercase tracking-widest">
@@ -154,7 +222,7 @@ export default function StockReportsPage() {
                   <div>
                     <span className="font-mono text-[10px] text-muted-foreground">{item.id}</span>
                     <h4 className="font-semibold text-xs text-foreground mt-0.5">{item.name}</h4>
-                    <p className="text-[11px] text-primary">{item.category}</p>
+                    <p className="text-[11px] text-primary font-medium">{item.category}</p>
                   </div>
                   <Badge variant={item.status === "Low Stock" ? "warning" : "success"}>
                     {item.status}
