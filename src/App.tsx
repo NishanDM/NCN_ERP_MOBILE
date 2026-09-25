@@ -15,6 +15,7 @@ import ChangeEmailPage from "@/pages/ChangeEmailPage"
 import ChangePasswordPage from "@/pages/ChangePasswordPage"
 import UserLoginPage from "./pages/UserLoginPage"
 import PurchaseOrdersPage from "@/pages/PurchaseOrdersPage"
+import PurchaseRequestsPage from "@/pages/PurchaseRequestsPage"
 import SuppliersPage from "@/pages/SuppliersPage"
 import StockReportsPage from "@/pages/StockReportsPage"
 import GRNSummaryPage from "@/pages/GRNSummaryPage"
@@ -52,6 +53,7 @@ export default function App() {
                   <Route path={ROUTES.PROFILE_CHANGE_EMAIL} element={<ChangeEmailPage />} />
                   <Route path={ROUTES.PROFILE_CHANGE_PASSWORD} element={<ChangePasswordPage />} />
                   <Route path={ROUTES.PURCHASE_ORDERS} element={<PurchaseOrdersPage />} />
+                  <Route path={ROUTES.PURCHASE_REQUESTS} element={<PurchaseRequestsPage />} />
                   <Route path={ROUTES.SUPPLIERS} element={<SuppliersPage />} />
                   <Route path={ROUTES.STOCK_REPORTS} element={<StockReportsPage />} />
                   <Route path={ROUTES.GRN_SUMMARY} element={<GRNSummaryPage />} />

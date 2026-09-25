@@ -11,7 +11,7 @@ const menuSections = [
     items: [
       { icon: ShoppingCart, label: "Purchase Orders", badge: "8 open", color: "text-blue-400", bg: "bg-blue-500/10", route: ROUTES.PURCHASE_ORDERS },
       { icon: Truck, label: "Suppliers", badge: null, color: "text-violet-400", bg: "bg-violet-500/10", route: ROUTES.SUPPLIERS },
-      { icon: FileBarChart, label: "Purchase Requests", badge: "3 pending", color: "text-amber-400", bg: "bg-amber-500/10" },
+      { icon: FileBarChart, label: "Purchase Requests", badge: "3 pending", color: "text-amber-400", bg: "bg-amber-500/10", route: ROUTES.PURCHASE_REQUESTS },
     ],
   },
   {

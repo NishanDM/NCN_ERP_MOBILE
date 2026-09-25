@@ -1,23 +1,24 @@
 export const ROUTES = {
-  // ── Auth ──────────────────────────────────────────────────────────────────
+  // --- Auth ---
   LOGIN: "/login",
 
-  // ── Bottom-nav tabs  ──────────────────────────────────
+  // --- Bottom-nav tabs ---
   DASHBOARD: "/dashboard",
   STOCK: "/stock",
   INVOICES: "/invoices",
   GRN: "/grn",
   MORE: "/more",
 
-  // ── Pushed screens  ────────
+  // --- Pushed screens ---
   NOTIFICATIONS: "/notifications",
   PROFILE: "/profile",
   PROFILE_EDIT: "/profile/edit",
   PROFILE_CHANGE_EMAIL: "/profile/change-email",
   PROFILE_CHANGE_PASSWORD: "/profile/change-password",
 
-  // ── Procurement & Administration ────────
+  // --- Procurement & Administration ---
   PURCHASE_ORDERS: "/purchase_orders",
+  PURCHASE_REQUESTS: "/purchase_requests",
   SUPPLIERS: "/suppliers",
   STOCK_REPORTS: "/stock-reports",
   GRN_SUMMARY: "/grn-summary",
@@ -28,9 +29,9 @@ export const ROUTES = {
 
 export type MobileRoute = (typeof ROUTES)[keyof typeof ROUTES];
 
-// ─────────────────────────────────────────────────────────────────────────────
+// -----------------------------------------------------------------------------
 // 2. BOTTOM-NAV TAB ORDER
-// ─────────────────────────────────────────────────────────────────────────────
+// -----------------------------------------------------------------------------
 
 export type TabKey = "dashboard" | "stock" | "invoices" | "grn" | "more";
 
@@ -48,9 +49,9 @@ export const TAB_ROUTE_ORDER: TabRouteEntry[] = [
   { key: "more", path: ROUTES.MORE, label: "More" },
 ];
 
-// ─────────────────────────────────────────────────────────────────────────────
+// -----------------------------------------------------------------------------
 // 3. ACTIVE-TAB RESOLUTION
-// ─────────────────────────────────────────────────────────────────────────────
+// -----------------------------------------------------------------------------
 
 export function getActiveTabFromPath(pathname: string): TabKey {
   if (pathname.startsWith(ROUTES.PROFILE)) return "more";
